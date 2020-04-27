@@ -157,6 +157,7 @@ public class Endpoint
      * The instance which manages the Colibri messaging (over a data channel
      * or web sockets).
      */
+    @NotNull
     private final EndpointMessageTransport messageTransport;
 
     /**
@@ -229,7 +230,7 @@ public class Endpoint
     /**
      * The executor which runs bandwidth probing.
      *
-     * TODO (brian): align the recurringrunnable stuff with whatever we end up
+     * TODO (brian): align the recurringRunnable stuff with whatever we end up
      * doing with all the other executors.
      */
     private static final RecurringRunnableExecutor recurringRunnableExecutor =
@@ -1001,52 +1002,6 @@ public class Endpoint
         }
 
         return true;
-    }
-
-    /**
-     * Notifies this {@link Endpoint} that a specific {@link ColibriWebSocket}
-     * instance associated with it has connected.
-     * @param ws the {@link ColibriWebSocket} which has connected.
-     */
-    public void onWebSocketConnect(ColibriWebSocket ws)
-    {
-        EndpointMessageTransport messageTransport
-            = getMessageTransport();
-        if (messageTransport != null)
-        {
-            messageTransport.onWebSocketConnect(ws);
-        }
-    }
-
-    /**
-     * Notifies this {@link Endpoint} that a specific {@link ColibriWebSocket}
-     * instance associated with it has been closed.
-     * @param ws the {@link ColibriWebSocket} which has been closed.
-     */
-    public void onWebSocketClose(
-            ColibriWebSocket ws, int statusCode, String reason)
-    {
-        EndpointMessageTransport messageTransport
-            = getMessageTransport();
-        if (messageTransport != null)
-        {
-            messageTransport.onWebSocketClose(ws, statusCode, reason);
-        }
-    }
-
-    /**
-     * Notifies this {@link Endpoint} that a message has been received from a
-     * specific {@link ColibriWebSocket} instance associated with it.
-     * @param ws the {@link ColibriWebSocket} from which a message was received.
-     */
-    public void onWebSocketText(ColibriWebSocket ws, String message)
-    {
-        EndpointMessageTransport messageTransport
-            = getMessageTransport();
-        if (messageTransport != null)
-        {
-            messageTransport.onWebSocketText(ws, message);
-        }
     }
 
     /**
